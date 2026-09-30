@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل بيانات الأطفال | مخيم طيبة الخير</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f766e;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --background: #f1f5f9;
+            --white: #ffffff;
+            --danger: #dc2626;
+            --success: #059669;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.12), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(15, 118, 110, 0.12), transparent 30%),
+                linear-gradient(135deg, #f8fafc, #eef4ff);
+
+            color: var(--text);
+            padding: 30px 15px;
+        }
+
+        /* الخلفية */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.08);
+            top: -100px;
+            right: -80px;
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(15, 118, 110, 0.07);
+            bottom: -100px;
+            left: -70px;
+            pointer-events: none;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            position: relative;
+            max-width: 850px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.10),
+                0 5px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        /* الهيدر */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+
+            background: linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+
+            color: white;
+            font-size: 32px;
+
+            box-shadow:
+                0 12px 25px rgba(37, 99, 235, 0.25);
+
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 650px;
+            margin: auto;
+            font-size: 14px;
+        }
+
+        /* الخطوات */
+        .steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            gap: 8px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            color: #64748b;
+            transition: 0.3s;
+        }
+
+        .step.active {
+            color: var(--primary);
+        }
+
+        .step.active .step-number {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.25);
+        }
+
+        .step-line {
+            width: 35px;
+            height: 2px;
+            background: #e2e8f0;
+        }
+
+        /* العناوين */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0 18px;
+        }
+
+        .section-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 18px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* الحقول */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #f8fafc;
+            color: var(--text);
+            font-size: 14px;
+            transition: 0.25s;
+            outline: none;
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #cbd5e1;
+        }
+
+        input:focus,
+        select:focus {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        input::placeholder {
+            color: #a1aab8;
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* شبكة */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* الأطفال */
+        .children-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .children-count-badge {
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 8px 13px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        #childrenContainer {
+            margin-top: 15px;
+        }
+
+        .child-section {
+            position: relative;
+            background: linear-gradient(145deg,
+                    #ffffff,
+                    #f8fafc);
+
+            border: 1px solid #e2e8f0;
+            padding: 22px;
+            margin: 15px 0;
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.04);
+
+            animation: slideUp 0.35s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .child-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .child-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 11px;
+
+            background: linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 800;
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.18);
+        }
+
+        .child-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .child-grid .full {
+            grid-column: 1 / -1;
+        }
+
+        /* العمر */
+        .age-display {
+            display: none;
+            margin-top: 8px;
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* الأخطاء */
+        .error {
+            color: var(--danger);
+            font-size: 11px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* زر الإرسال */
+        button {
+            width: 100%;
+            height: 56px;
+            border: none;
+            border-radius: 16px;
+
+            background:
+                linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            margin-top: 25px;
+
+            box-shadow:
+                0 12px 25px rgba(37, 99, 235, 0.20);
+
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 16px 30px rgba(37, 99, 235, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            transform: none;
+            cursor: not-allowed;
+        }
+
+        /* رسالة النجاح */
+        .success {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 16px;
+
+            margin-top: 20px;
+
+            font-weight: 700;
+
+            display: none;
+
+            animation: slideUp 0.4s ease;
+        }
+
+        .success-icon {
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        /* الفوتر */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .footer strong {
+            color: #475569;
+        }
+
+        /* الموبايل */
+        @media (max-width: 650px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 22px 16px;
+                border-radius: 22px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            .steps {
+                gap: 5px;
+            }
+
+            .step span:not(.step-number) {
+                display: none;
+            }
+
+            .step-line {
+                width: 25px;
+            }
+
+            .grid,
+            .child-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .child-grid .full {
+                grid-column: auto;
+            }
+
+            .child-section {
+                padding: 17px;
+            }
+
+            .children-header {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- الهيدر -->
+        <div class="header">
+
+            <div class="logo">
+                👨‍👩‍👧
+            </div>
+
+            <h1>
+                تسجيل بيانات الأطفال
+            </h1>
+
+            <p class="description">
+                نموذج إلكتروني مخصص لتسجيل وحصر بيانات الأطفال
+                من عمر يوم واحد وحتى 18 سنة.
+                يرجى إدخال البيانات بدقة لضمان صحة السجل.
+            </p>
+
+        </div>
+
+
+        <!-- خطوات النموذج -->
+        <div class="steps">
+
+            <div class="step active">
+                <span class="step-number">1</span>
+                <span>ولي الأمر</span>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <span>عدد الأطفال</span>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <span>بيانات الأطفال</span>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <span>الإرسال</span>
+            </div>
+
+        </div>
+
+
+        <form id="registrationForm">
+
+            <!-- بيانات ولي الأمر -->
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    👤
+                </div>
+
+                <div>
+                    <h2>بيانات ولي الأمر</h2>
+                    <p>أدخل بيانات الشخص المسؤول عن الأطفال</p>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    اسم ولي الأمر رباعي
+                    <span class="required">*</span>
+                </label>
+
+                <input type="text" id="parentName" placeholder="مثال: عزيز احمد محمد ماضي" autocomplete="name" required>
+
+            </div>
+
+
+            <div class="grid">
+
+                <div class="form-group">
+
+                    <label>
+                        رقم هوية ولي الأمر
+                        <span class="required">*</span>
+                    </label>
+
+                    <input type="text" id="parentId" maxlength="9" inputmode="numeric" placeholder="9 أرقام" required>
+
+                    <div class="hint">
+                        يجب إدخال 9 أرقام بالضبط
+                    </div>
+
+                    <div class="error" id="parentIdError">
+                        يجب أن يكون رقم الهوية 9 أرقام بالضبط
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        رقم التواصل
+                        <span class="required">*</span>
+                    </label>
+
+                    <input type="text" id="parentPhone" maxlength="10" inputmode="numeric"
+                        placeholder="مثال: 059XXXXXXX" required>
+
+                    <div class="hint">
+                        يجب إدخال 10 أرقام بالضبط
+                    </div>
+
+                    <div class="error" id="parentPhoneError">
+                        يجب أن يكون رقم التواصل 10 أرقام بالضبط
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- عدد الأطفال -->
+
+            <div class="children-header">
+
+                <div class="section-title" style="margin-bottom:0">
+
+                    <div class="section-icon">
+                        👧
+                    </div>
+
+                    <div>
+                        <h2>عدد الأطفال</h2>
+                        <p>حدد عدد الأطفال المراد تسجيلهم</p>
+                    </div>
+
+                </div>
+
+                <div class="children-count-badge">
+                    من 1 إلى 8 أطفال
+                </div>
+
+            </div>
+
+
+            <div class="form-group" style="margin-top:18px">
+
+                <label>
+                    كم طفلًا لديك من عمر يوم واحد إلى 18 سنة؟
+                    <span class="required">*</span>
+                </label>
+
+                <select id="childrenCount" required>
+
+                    <option value="">
+                        اختر عدد الأطفال
+                    </option>
+
+                    <option value="1">1 طفل</option>
+                    <option value="2">2 أطفال</option>
+                    <option value="3">3 أطفال</option>
+                    <option value="4">4 أطفال</option>
+                    <option value="5">5 أطفال</option>
+                    <option value="6">6 أطفال</option>
+                    <option value="7">7 أطفال</option>
+                    <option value="8">8 أطفال</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- الأطفال -->
+
+            <div id="childrenContainer"></div>
+
+
+            <!-- الإرسال -->
+
+            <button type="submit">
+
+                إرسال البيانات
+                <span> →</span>
+
+            </button>
+
+        </form>
+
+
+        <!-- النجاح -->
+
+        <div class="success" id="successMessage">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            تم إرسال بيانات الأطفال بنجاح
+
+            <div style="font-size:12px;margin-top:5px;font-weight:500">
+                شكرًا لتعبئة النموذج بشكل صحيح
+            </div>
+
+        </div>
+
+
+        <!-- الفوتر -->
+
+        <div class="footer">
+
+            تصميم وتطوير
+            <strong>المهندس عزيز ماضي</strong>
+
+            <br>
+
+            نظام تسجيل وحصر بيانات الأطفال
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* رابط Google Apps Script */
+        const SCRIPT_URL =
+            'https://script.google.com/macros/s/AKfycbwjIPLlCrbbT4F0zXhZZq2lVi84isn8VDGaDapKgnTrG5vrkuDnvy0S8MYn_b_YtOHC/exec';
+
+
+        /* رقم الأسرة */
+        let familyId =
+            Math.floor(Math.random() * 900) + 100;
+
+
+        /* منع إدخال أي شيء غير الأرقام */
+        function onlyNumbers(input) {
+
+            input.addEventListener('input', function () {
+
+                this.value =
+                    this.value.replace(/\D/g, '');
+
+            });
+
+        }
+
+
+        onlyNumbers(
+            document.getElementById('parentId')
+        );
+
+        onlyNumbers(
+            document.getElementById('parentPhone')
+        );
+
+
+        /* إنشاء حقول الأطفال */
+
+        document
+            .getElementById('childrenCount')
+            .addEventListener('change', function () {
+
+                const count =
+                    parseInt(this.value);
+
+                const container =
+                    document.getElementById('childrenContainer');
+
+                container.innerHTML = '';
+
+
+                if (!count) {
+                    return;
+                }
+
+
+                for (let i = 1; i <= count; i++) {
+
+                    const childDiv =
+                        document.createElement('div');
+
+                    childDiv.className =
+                        'child-section';
+
+
+                    childDiv.innerHTML = `
+
+                    <div class="child-title">
+
+                        <div class="child-number">
+                            ${String(i).padStart(2, '0')}
+                        </div>
+
+                        <div>
+                            بيانات الطفل ${i}
+                        </div>
+
+                    </div>
+
+
+                    <div class="child-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                اسم الطفل رباعي
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="child-name"
+                                placeholder="مثال: أحمد محمد علي حسن"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                رقم هوية الطفل
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="child-id"
+                                maxlength="9"
+                                inputmode="numeric"
+                                placeholder="9 أرقام"
+                                required
+                            >
+
+                            <div class="error">
+                                يجب أن يكون رقم الهوية 9 أرقام بالضبط
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                تاريخ ميلاد الطفل
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="date"
+                                class="child-dob"
+                                required
+                            >
+
+                            <div class="age-display"></div>
+
+                            <div class="error child-age-error">
+                                العمر يجب أن يكون بين يوم واحد و18 سنة
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                    container.appendChild(childDiv);
+
+
+                    /* تفعيل الأرقام فقط */
+
+                    const childId =
+                        childDiv.querySelector('.child-id');
+
+                    onlyNumbers(childId);
+
+
+                    /* تحديد أقصى وأدنى تاريخ */
+
+                    const dob =
+                        childDiv.querySelector('.child-dob');
+
+                    const today =
+                        new Date();
+
+                    const yesterday =
+                        new Date(today);
+
+                    yesterday.setDate(
+                        yesterday.getDate() - 1
+                    );
+
+
+                    const eighteenYearsAgo =
+                        new Date(today);
+
+                    eighteenYearsAgo.setFullYear(
+                        eighteenYearsAgo.getFullYear() - 18
+                    );
+
+
+                    dob.min =
+                        eighteenYearsAgo
+                            .toISOString()
+                            .split('T')[0];
+
+                    dob.max =
+                        yesterday
+                            .toISOString()
+                            .split('T')[0];
+
+                }
+
+            });
+
+
+        /* حساب العمر وعرضه */
+
+        document.addEventListener(
+            'change',
+            function (e) {
+
+                if (
+                    e.target.classList.contains('child-dob')
+                ) {
+
+                    const dob =
+                        new Date(e.target.value);
+
+                    const today =
+                        new Date();
+
+
+                    let age =
+                        today.getFullYear() -
+                        dob.getFullYear();
+
+
+                    const monthDifference =
+                        today.getMonth() -
+                        dob.getMonth();
+
+
+                    if (
+                        monthDifference < 0 ||
+                        (
+                            monthDifference === 0 &&
+                            today.getDate() < dob.getDate()
+                        )
+                    ) {
+
+                        age--;
+
+                    }
+
+
+                    const errorDiv =
+                        e.target
+                            .parentElement
+                            .querySelector(
+                                '.child-age-error'
+                            );
+
+
+                    const ageDisplay =
+                        e.target
+                            .parentElement
+                            .querySelector(
+                                '.age-display'
+                            );
+
+
+                    const ageMs =
+                        today - dob;
+
+
+                    const ageDays =
+                        Math.floor(
+                            ageMs /
+                            (1000 * 60 * 60 * 24)
+                        );
+
+
+                    if (
+                        ageDays < 1 ||
+                        age > 18 ||
+                        dob > today
+                    ) {
+
+                        errorDiv.style.display =
+                            'block';
+
+                        ageDisplay.style.display =
+                            'none';
+
+                    } else {
+
+                        errorDiv.style.display =
+                            'none';
+
+                        ageDisplay.style.display =
+                            'block';
+
+
+                        if (age === 0) {
+
+                            ageDisplay.innerHTML =
+                                'العمر: أقل من سنة';
+
+                        } else {
+
+                            ageDisplay.innerHTML =
+                                'العمر: ' +
+                                age +
+                                ' سنة';
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* إرسال النموذج */
+
+        document
+            .getElementById('registrationForm')
+            .addEventListener(
+                'submit',
+                function (e) {
+
+                    e.preventDefault();
+
+
+                    const submitButton =
+                        this.querySelector(
+                            'button[type="submit"]'
+                        );
+
+
+                    /* منع الضغط المتكرر */
+
+                    if (submitButton.disabled) {
+                        return;
+                    }
+
+
+                    const parentId =
+                        document
+                            .getElementById('parentId')
+                            .value;
+
+
+                    const parentPhone =
+                        document
+                            .getElementById('parentPhone')
+                            .value;
+
+
+                    /* التحقق من هوية ولي الأمر */
+
+                    if (
+                        !/^\d{9}$/.test(parentId)
+                    ) {
+
+                        document
+                            .getElementById(
+                                'parentIdError'
+                            )
+                            .style.display =
+                            'block';
+
+                        return;
+
+                    } else {
+
+                        document
+                            .getElementById(
+                                'parentIdError'
+                            )
+                            .style.display =
+                            'none';
+
+                    }
+
+
+                    /* التحقق من الهاتف */
+
+                    if (
+                        !/^\d{10}$/.test(parentPhone)
+                    ) {
+
+                        document
+                            .getElementById(
+                                'parentPhoneError'
+                            )
+                            .style.display =
+                            'block';
+
+                        return;
+
+                    } else {
+
+                        document
+                            .getElementById(
+                                'parentPhoneError'
+                            )
+                            .style.display =
+                            'none';
+
+                    }
+
+
+                    const children = [];
+
+
+                    const childNames =
+                        document.querySelectorAll(
+                            '.child-name'
+                        );
+
+
+                    const childIds =
+                        document.querySelectorAll(
+                            '.child-id'
+                        );
+
+
+                    const childDobs =
+                        document.querySelectorAll(
+                            '.child-dob'
+                        );
+
+
+                    /* التحقق من بيانات الأطفال */
+
+                    for (
+                        let i = 0;
+                        i < childNames.length;
+                        i++
+                    ) {
+
+                        const childId =
+                            childIds[i].value;
+
+
+                        if (
+                            !/^\d{9}$/.test(childId)
+                        ) {
+
+                            alert(
+                                'رقم هوية الطفل ' +
+                                (i + 1) +
+                                ' يجب أن يكون 9 أرقام'
+                            );
+
+                            childIds[i].focus();
+
+                            return;
+
+                        }
+
+
+                        const dob =
+                            new Date(
+                                childDobs[i].value
+                            );
+
+
+                        const today =
+                            new Date();
+
+
+                        const ageMs =
+                            today - dob;
+
+
+                        const ageDays =
+                            ageMs /
+                            (1000 * 60 * 60 * 24);
+
+
+                        const ageYears =
+                            ageDays /
+                            365.25;
+
+
+                        if (
+                            ageDays < 1 ||
+                            ageYears > 18
+                        ) {
+
+                            alert(
+                                'عمر الطفل ' +
+                                (i + 1) +
+                                ' غير ضمن النطاق المسموح'
+                            );
+
+                            childDobs[i].focus();
+
+                            return;
+
+                        }
+
+
+                        children.push({
+
+                            name:
+                                childNames[i].value,
+
+                            id:
+                                childIds[i].value,
+
+                            dob:
+                                childDobs[i].value,
+
+                            age:
+                                Math.floor(ageYears)
+
+                        });
+
+                    }
+
+
+                    /* البيانات النهائية */
+
+                    const data = {
+
+                        familyId:
+                            familyId,
+
+                        parentName:
+                            document
+                                .getElementById(
+                                    'parentName'
+                                )
+                                .value,
+
+                        parentId:
+                            parentId,
+
+                        parentPhone:
+                            parentPhone,
+
+                        children:
+                            children
+
+                    };
+
+
+                    /* حالة الإرسال */
+
+                    submitButton.disabled = true;
+
+                    submitButton.innerHTML =
+                        'جاري إرسال البيانات...';
+
+                    submitButton.style.opacity =
+                        '0.65';
+
+                    submitButton.style.cursor =
+                        'not-allowed';
+
+
+                    /* إرسال إلى Google Apps Script */
+
+                    fetch(
+                        SCRIPT_URL,
+                        {
+                            method: 'POST',
+
+                            body:
+                                JSON.stringify(data)
+                        }
+                    )
+
+                        .then(
+                            response =>
+                                response.json()
+                        )
+
+                        .then(
+                            result => {
+
+                                if (
+                                    result.result ===
+                                    'success'
+                                ) {
+
+                                    const successMessage =
+                                        document
+                                            .getElementById(
+                                                'successMessage'
+                                            );
+
+
+                                    successMessage.innerHTML = `
+
+                                <div class="success-icon">
+                                    ✓
+                                </div>
+
+                                تم إرسال بيانات الأطفال بنجاح
+
+                                <div style="
+                                    font-size:12px;
+                                    margin-top:7px;
+                                    font-weight:500;
+                                ">
+                                    شكرًا لتعبئة النموذج بشكل صحيح
+                                </div>
+
+                            `;
+
+
+                                    successMessage.style.display =
+                                        'block';
+
+
+                                    document
+                                        .getElementById(
+                                            'registrationForm'
+                                        )
+                                        .reset();
+
+
+                                    document
+                                        .getElementById(
+                                            'childrenContainer'
+                                        )
+                                        .innerHTML =
+                                        '';
+
+
+                                    familyId =
+                                        Math.floor(
+                                            Math.random() *
+                                            900
+                                        ) + 100;
+
+
+                                    submitButton.innerHTML =
+                                        'تم إرسال البيانات ✓';
+
+
+                                    setTimeout(
+                                        function () {
+
+                                            submitButton.disabled =
+                                                false;
+
+                                            submitButton.innerHTML =
+                                                'إرسال البيانات →';
+
+                                            submitButton.style.opacity =
+                                                '1';
+
+                                            submitButton.style.cursor =
+                                                'pointer';
+
+                                        },
+                                        2500
+                                    );
+
+                                } else {
+
+                                    throw new Error(
+                                        'حدث خطأ في الإرسال'
+                                    );
+
+                                }
+
+                            }
+                        )
+
+                        .catch(
+                            error => {
+
+                                alert(
+                                    'حدث خطأ أثناء إرسال البيانات، حاول مرة أخرى.'
+                                );
+
+
+                                submitButton.disabled =
+                                    false;
+
+
+                                submitButton.innerHTML =
+                                    'إرسال البيانات →';
+
+
+                                submitButton.style.opacity =
+                                    '1';
+
+
+                                submitButton.style.cursor =
+                                    'pointer';
+
+                            }
+                        );
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>
